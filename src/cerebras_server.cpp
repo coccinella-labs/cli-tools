@@ -289,13 +289,13 @@ private:
         // Serve static files
         if (req.method == "GET") {
             if (req.path == "/" || req.path == "/index.html") {
-                return serveFile("index.html", "text/html");
+                return serveFile("build/index.html", "text/html");
             } else if (req.path == "/styles.css") {
-                return serveFile("styles.css", "text/css");
+                return serveFile("build/styles.css", "text/css");
             } else if (req.path == "/script.js") {
-                return serveFile("script.js", "text/javascript");
+                return serveFile("build/script.js", "text/javascript");
             } else if (req.path == "/legal.html") {
-                return serveFile("legal.html", "text/html");
+                return serveFile("build/legal.html", "text/html");
             }
         }
 
