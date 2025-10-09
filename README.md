@@ -29,13 +29,13 @@ make
 ### run cli
 
 ```bash
-./cli --model qwen-3-32b --prompt "you are a helpful assistant."
+./build/cli --model qwen-3-32b --prompt "you are a helpful assistant."
 ```
 
 ### run web ui
 
 ```bash
-./server
+./build/cerebras_server
 # visit http://localhost:8080
 ```
 
