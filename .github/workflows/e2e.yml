@@ -29,4 +29,4 @@ jobs:
       run: |
         cd build
         echo "CEREBRAS_API_KEY=dummy" > .env
-        echo "test input" | timeout 10s ./clie || true
+        printf "test input\nexit\n" | timeout 10s ./clie || true
