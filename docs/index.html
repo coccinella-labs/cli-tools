@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerebras API Tools - Clean AI Interface</title>
+    <link rel="icon" type="image/png" href="https://media.licdn.com/dms/image/v2/D4D0BAQGSIjAXMk8bGQ/company-logo_200_200/B4DZcGlVyYGkAM-/0/1748162141799?e=1753920000&v=beta&t=jQYzZSKaEvERzj1LWRxoeA2KXHSYCFFXZWIWv6ZS2EQ">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', system-ui, sans-serif;
+            background: #fefefe;
+            color: #2c2c2c;
+            line-height: 1.8;
+            font-size: 17px;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 64px 32px;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            background: #ffffff;
+            width: 100%;
+        }
+
+        .text-section {
+            padding: 0;
+            margin-bottom: 48px;
+        }
+
+        .main-title {
+            font-size: 52px;
+            font-weight: 200;
+            color: #4a4a4a;
+            margin-bottom: 32px;
+            line-height: 1.3;
+            letter-spacing: 1.5px;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            font-weight: 300;
+            color: #6a6a6a;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .minimal {
+            margin-bottom: 0.2rem;
+        }
+
+        .presentation {
+            margin-bottom: 0;
+        }
+
+        .image-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: sepia(10%) saturate(80%) brightness(95%);
+        }
+
+        .tagline {
+            margin: 3rem auto 4rem auto;
+            text-align: center;
+            max-width: 700px;
+            padding: 0 2rem;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .tagline p {
+            font-family: inherit;
+            font-size: 18px;
+            font-weight: 300;
+            color: #5a5a5a;
+            letter-spacing: 0.4px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        /* Featured Interface Section */
+        .featured-interface {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 3rem 0;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .interface-content h3 {
+            font-family: inherit;
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .interface-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #5a5a5a;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        .interface-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 400;
+            color: #5a5a5a;
+            letter-spacing: 0.3px;
+        }
+
+        .feature-icon {
+            font-size: 18px;
+        }
+
+        .interface-image {
+            position: relative;
+        }
+
+        .interface-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease;
+        }
+
+        .interface-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 14px;
+            color: #8a8a8a;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            font-style: italic;
+        }
+
+        /* Services Section */
+        .services-section {
+            margin-top: 4rem;
+            width: 100%;
+            max-width: 1200px;
+            animation: fadeIn 1.4s ease-out;
+        }
+
+        .services-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: #2c2c2c;
+            margin-bottom: 3rem;
+            text-align: left;
+            letter-spacing: -0.02em;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:nth-child(even) {
+            grid-template-columns: 300px 1fr;
+        }
+
+        .service-card:nth-child(even) .service-content {
+            order: 2;
+        }
+
+        .service-card:nth-child(even) .service-image {
+            order: 1;
+        }
+
+        .service-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #2c2c2c;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .service-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+            margin: 0;
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(15%) saturate(70%) brightness(90%);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+
+        .cerebras-image {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid rgba(44, 44, 44, 0.05);
+        }
+
+        .cerebras-image img {
+            filter: sepia(5%) saturate(90%) brightness(95%) contrast(1.05);
+        }
+
+        .ecosystem-badge {
+            text-align: right;
+            margin-top: 2rem;
+        }
+
+        .ecosystem-badge span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        /* Navigation Links - Consistent Typography for Enduring Strength */
+        .nav-links {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: #ffffff;
+            border: 2px solid #e5e5e5;
+            border-radius: 12px;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            min-height: 56px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-link:hover {
+            background: #f8f9fa;
+            border-color: #007aff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0, 122, 255, 0.15);
+            color: #007aff;
+        }
+
+        .nav-link:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .nav-link:hover svg {
+            transform: scale(1.05);
+        }
+
+        /* Consistent Button Styling for Truth & Growth */
+        .nav-link.github-link:hover {
+            border-color: #24292e;
+            color: #24292e;
+            box-shadow: 0 4px 16px rgba(36, 41, 46, 0.15);
+        }
+
+        .nav-link.openrouter-link:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+        }
+
+        .nav-link.legal-link:hover {
+            border-color: #059669;
+            color: #059669;
+            box-shadow: 0 4px 16px rgba(5, 150, 105, 0.15);
+        }
+
+        /* Custom Cursor - Noise-free & Minimal */
+        .cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(44, 44, 44, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+            filter: blur(0.3px);
+            opacity: 0.7;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle, rgba(44, 44, 44, 0.08) 0%, rgba(44, 44, 44, 0.04) 50%, transparent 80%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
+            filter: blur(1.5px);
+            opacity: 0.5;
+        }
+
+        .cursor.hover {
+            transform: scale(1.2);
+            filter: blur(0.5px);
+            opacity: 0.8;
+        }
+
+        .cursor-trail.hover {
+            transform: scale(1.3);
+            filter: blur(2px);
+            opacity: 0.6;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(184, 181, 168, 0.8);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background-color: #f5f3f0;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            animation: slideInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem 2rem;
+            border-bottom: 1px solid rgba(44, 44, 44, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #2c2c2c;
+            margin: 0;
+        }
+
+        .close {
+            color: #666;
+            font-size: 2rem;
+            font-weight: 300;
+            cursor: none;
+            transition: color 0.3s ease;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #2c2c2c;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .legal-section {
+            margin-bottom: 2rem;
+        }
+
+        .legal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .legal-section h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c2c2c;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .legal-section p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+            margin-bottom: 0;
+        }
+
+        .legal-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .legal-section li {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .legal-section li:before {
+            content: "•";
+            color: #b8b5a8;
+            position: absolute;
+            left: 0;
+        }
+
+        /* LinkedIn Embed Styling */
+        .linkedin-embed-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 16px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .linkedin-embed-container iframe {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tablet Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 48px 24px;
+            }
+
+            .main-title {
+                font-size: 36px;
+            }
+
+            .services-title {
+                font-size: 28px;
+            }
+
+            .service-card {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px;
+            }
+
+            .service-card:nth-child(even) {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card:nth-child(even) .service-content,
+            .service-card:nth-child(even) .service-image {
+                order: initial;
+            }
+
+            .service-image {
+                height: 240px;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+                font-size: 15px;
+            }
+
+            .cursor, .cursor-trail {
+                display: none;
+            }
+
+            .container {
+                padding: 32px 16px;
+            }
+
+            .main-title {
+                font-size: 28px;
+                margin-bottom: 16px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+                margin-bottom: 24px;
+            }
+
+            .tagline {
+                margin-bottom: 32px;
+            }
+
+            .tagline p {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            .featured-interface {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+                margin: 2rem 0;
+            }
+
+            .interface-content h3 {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+
+            .interface-content p {
+                font-size: 16px;
+                text-align: center;
+            }
+
+            .interface-features {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .services-section {
+                margin-top: 32px;
+            }
+
+            .services-title {
+                font-size: 24px;
+                margin-bottom: 24px;
+            }
+
+            .services-grid {
+                gap: 24px;
+                margin-bottom: 24px;
+            }
+
+            .service-card {
+                padding: 20px;
+                border-radius: 12px;
+            }
+
+            .service-content h3 {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+
+            .service-content p {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .service-image {
+                height: 180px;
+                border-radius: 8px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 16px;
+                margin-top: 32px;
+            }
+
+            .nav-link {
+                padding: 16px 24px;
+                font-size: 16px;
+                font-weight: 500;
+                justify-content: center;
+                min-height: 56px;
+                border-radius: 12px;
+                letter-spacing: 0.01em;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .modal-header {
+                padding: 16px;
+            }
+
+            .modal-header h2 {
+                font-size: 18px;
+            }
+
+            .modal-body {
+                padding: 16px;
+            }
+
+            .legal-section h3 {
+                font-size: 16px;
+            }
+
+            .legal-section p,
+            .legal-section li {
+                font-size: 14px;
+            }
+
+            .linkedin-embed-container {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+
+            .linkedin-embed-container iframe {
+                width: 100%;
+                height: auto;
+                min-height: 400px;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px 12px;
+            }
+
+            .main-title {
+                font-size: 24px;
+            }
+
+            .services-title {
+                font-size: 20px;
+            }
+
+            .service-card {
+                padding: 16px;
+            }
+
+            .service-content h3 {
+                font-size: 16px;
+            }
+
+            .service-content p {
+                font-size: 13px;
+            }
+
+            .service-image {
+                height: 160px;
+            }
+
+            .nav-link {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+        }
+
+
+
+            .services-section {
+                margin-top: 2rem;
+                padding: 0 0.5rem;
+            }
+
+            .services-title {
+                font-size: 2rem;
+                text-align: center;
+                margin-bottom: 2rem;
+                line-height: 1.2;
+            }
+
+            .services-grid {
+                gap: 2rem;
+            }
+
+            .service-card {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+                padding: 1.5rem 1rem;
+                margin: 0;
+                border-radius: 12px;
+            }
+
+            .service-card:nth-child(even) .service-content {
+                order: 1;
+            }
+
+            .service-card:nth-child(even) .service-image {
+                order: 2;
+            }
+
+            .service-content h3 {
+                font-size: 1.4rem;
+                text-align: center;
+                margin-bottom: 0.8rem;
+            }
+
+            .service-content p {
+                text-align: center;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .service-image {
+                height: 180px;
+                margin: 0 auto;
+                max-width: 280px;
+            }
+
+            .ecosystem-badge {
+                text-align: center;
+                margin-top: 1.5rem;
+            }
+
+            .ecosystem-badge span {
+                font-size: 0.7rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.8rem;
+                margin-top: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .nav-link {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                justify-content: center;
+                min-height: 48px; /* Touch-friendly size */
+                cursor: pointer;
+            }
+
+            .nav-link:hover {
+                transform: none; /* Disable hover lift on mobile */
+            }
+
+            .nav-link:active {
+                transform: scale(0.98);
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+            .modal {
+                padding: 1rem;
+            }
+
+            .modal-content {
+                margin: 5% auto;
+                width: 100%;
+                max-width: 100%;
+                max-height: 90vh;
+                border-radius: 12px;
+            }
+
+            .modal-header {
+                padding: 1.5rem 1rem 1rem 1rem;
+            }
+
+            .modal-header h2 {
+                font-size: 1.4rem;
+                line-height: 1.3;
+            }
+
+            .close {
+                font-size: 1.8rem;
+                padding: 0.5rem;
+                cursor: pointer;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .legal-section h3 {
+                font-size: 1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .legal-section p,
+            .legal-section li {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            .content-wrapper {
+                margin: 0 0.5rem;
+            }
+
+            .main-title {
+                font-size: 1.8rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .text-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .subtitle {
+                font-size: 0.75rem;
+            }
+
+            .tagline p {
+                font-size: 0.85rem;
+                padding: 0 0.5rem;
+            }
+
+            .services-title {
+                font-size: 1.6rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .service-card {
+                padding: 1rem 0.8rem;
+                gap: 0.8rem;
+            }
+
+            .service-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .service-content p {
+                font-size: 0.85rem;
+            }
+
+            .service-image {
+                height: 150px;
+                max-width: 250px;
+            }
+
+            .nav-link {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+                min-height: 44px;
+            }
+
+            .modal-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .legal-section h3 {
+                font-size: 0.95rem;
+            }
+
+            .legal-section p,
+            .legal-section li {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor Elements -->
+    <div class="cursor"></div>
+    <div class="cursor-trail"></div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="text-section">
+                <h1 class="main-title">Clie.ai</h1>
+                <div class="subtitle">
+                    <span class="minimal">Powered by</span>
+                    <span class="presentation">Qwen3-32B</span>
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Serene coastal landscape" class="hero-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="tagline">
+            <p>We gently guide businesses toward restoration and renewal, honoring the well-being of everyone involved. When challenges arise, we respond with calm wisdom and restorative solutions. Our approach is rooted in deep listening, genuine care, and the understanding that true success comes from restoring harmony and serving others with compassion and grace.</p>
+        </div>
+
+        <!-- Featured AI Chat Interface -->
+        <div class="services-section">
+            <h2 class="services-title">Experience Peaceful AI Conversations</h2>
+
+            <div class="featured-interface">
+                <div class="interface-content">
+                    <h3>Cerebras AI Chat Interface</h3>
+                    <p>Our thoughtfully designed interface creates a sanctuary for meaningful conversations. With gentle typography, calming colors, and restorative language, every interaction honors your well-being and supports your journey toward clarity and peace.</p>
+                    <div class="interface-features">
+                        <div class="feature">
+                            <span class="feature-icon">🕊️</span>
+                            <span>Peaceful Design</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">💙</span>
+                            <span>Calming Colors</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">✨</span>
+                            <span>Gentle Typography</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🌱</span>
+                            <span>Restorative Experience</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-image">
+                    <img src="assets/functionality.png" alt="Cerebras AI Chat Interface - Peaceful Design for Exhausted Souls" />
+                    <div class="image-caption">Our AI chat interface designed for peace and restoration</div>
+                </div>
+            </div>
+
+            <div class="ecosystem-badge">
+                <span>DESIGNED FOR EXHAUSTED SOULS SEEKING PEACE</span>
+            </div>
+        </div>
+
+        <!-- Services Section -->
+        <div class="services-section">
+            <h2 class="services-title">Our Services</h2>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Thoughtful AI Assistance</h3>
+                        <p>We provide gentle, responsive AI support that adapts to your pace and needs. Our technology creates a calm space for meaningful conversations, honoring your well-being while offering helpful insights.</p>
+                    </div>
+                    <div class="service-image cerebras-image">
+                        <img src="assets/functionality.png" alt="Cerebras AI Chat Interface - Peaceful Design" onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Mindful Development</h3>
+                        <p>We craft software with care and intention, creating tools that serve your needs without overwhelming complexity. Our development approach honors simplicity, reliability, and the peace of mind that comes from well-built solutions.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Development">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Gentle Business Growth</h3>
+                        <p>We support your business journey with patience and understanding. When challenges arise, we respond thoughtfully, offering guidance that honors both your goals and the well-being of your team. Growth happens naturally when nurtured with care.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Business Growth">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Harmonious AI Integration</h3>
+                        <p>We create peaceful connections between different AI systems, allowing them to work together in harmony. Through OpenRouter.ai, we offer you choices that feel natural and supportive, adapting to your unique needs and preferences.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="AI Integration">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ecosystem-badge">
+                <span>CEREBRAS AI ECOSYSTEM</span>
+            </div>
+        </div>
+
+        <!-- Special Offering Section -->
+        <div class="services-section">
+            <h2 class="services-title">Our Special Offering</h2>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Nurturing Community Care</h3>
+                        <p>We offer our support freely to those who need it most. When small businesses and startups face challenges, we respond with open hearts and helpful guidance. Your success brings us joy, and we're honored to be part of your journey.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Community Support">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Heartfelt Appreciation</h3>
+                        <p>We hold deep gratitude for the trust you place in us. Each conversation is a gift, each challenge an opportunity to show care. When difficulties arise, we meet them with gentle understanding and the warmth that comes from genuine appreciation for your journey.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Gratitude">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Generous Sharing</h3>
+                        <p>We believe knowledge grows when shared with open hearts. Our tools are gifts to the community, offered freely so that others may build, learn, and flourish. When we give without expectation, we create ripples of positive change that honor everyone's well-being.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Open Source">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ecosystem-badge">
+                <span>BUILT WITH GRATITUDE & PURPOSE</span>
+            </div>
+        </div>
+
+        <!-- Spiritual Foundation Section -->
+        <div class="services-section">
+            <h2 class="services-title">Our Spiritual Foundation</h2>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Divine Guidance</h3>
+                        <p>Most important are the approvals of religious leaders who guide us toward true value. We surrender to the purest forms of worship, recognizing that all wisdom and success flow from divine grace.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Divine Guidance">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Sacred Values</h3>
+                        <p>Our work is grounded in sacred principles. We seek the blessings and approval of spiritual leaders, understanding that true value comes from surrendering our efforts to the highest purpose and purest worship.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sacred Values">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Humble Service</h3>
+                        <p>In humility, we acknowledge that our abilities are gifts to be used in service of others. Through pure worship and spiritual guidance, we strive to serve with integrity, compassion, and divine purpose.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Humble Service">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ecosystem-badge">
+                <span>BLESSED BY DIVINE GRACE & SPIRITUAL GUIDANCE</span>
+            </div>
+        </div>
+
+        <!-- Empathy & Understanding Section -->
+        <div class="services-section">
+            <h2 class="services-title">Empathy & Understanding</h2>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Deep Listening</h3>
+                        <p>Empathy begins with paying attention. We listen deeply to understand your needs, concerns, and aspirations. Your approval and satisfaction matter to us because we genuinely care about your success and well-being.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Deep Listening">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Seeking Approval</h3>
+                        <p>We value the approval of those we serve. Your feedback, concerns, and approval guide our actions. We pay attention to what matters to you because building trust requires understanding and responding to your needs with genuine care.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Understanding">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Compassionate Service</h3>
+                        <p>Empathy drives everything we do. We pay attention to the human side of business - your challenges, hopes, and dreams. Our success is measured not just in results, but in the approval and trust we earn through genuine compassion.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Compassionate Service">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ecosystem-badge">
+                <span>BUILT WITH EMPATHY & GENUINE CARE</span>
+            </div>
+        </div>
+
+        <!-- Clarity & Wisdom Section -->
+        <div class="services-section">
+            <h2 class="services-title">Clarity Through Stillness</h2>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Freedom from Distraction</h3>
+                        <p>In our fast-paced world, we create spaces free from constant distraction. Here, your mind can rest, your thoughts can settle, and genuine clarity can emerge naturally. We honor the quiet moments where wisdom speaks most clearly.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Peaceful Clarity">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Valuable Wisdom</h3>
+                        <p>True wisdom arrives not through force, but through patient waiting and gentle attention. We cultivate environments where insights can bloom naturally, where understanding deepens with time, and where clarity emerges from within.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Inner Wisdom">
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Sustaining Future Opportunities</h3>
+                        <p>When we build with character and trust, we create foundations that support lasting growth. Our approach honors both immediate needs and future possibilities, ensuring that today's choices nurture tomorrow's opportunities with integrity and care.</p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Future Growth">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ecosystem-badge">
+                <span>CLARITY THROUGH MINDFUL PRESENCE</span>
+            </div>
+        </div>
+
+        <!-- LinkedIn Embed Section -->
+        <div class="services-section">
+            <h2 class="services-title">Our Journey & Insights</h2>
+
+            <div class="linkedin-embed-container">
+                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7331944803292581888?collapsed=1"
+                        height="557"
+                        width="504"
+                        frameborder="0"
+                        allowfullscreen=""
+                        title="Embedded post">
+                </iframe>
+            </div>
+
+            <div class="ecosystem-badge">
+                <span>BUILDING CHARACTER & TRUST FOR THE FUTURE</span>
+            </div>
+        </div>
+
+        <!-- Footer with Copyright -->
+        <footer style="text-align: center; padding: 3rem 0 2rem 0; color: #8a8a8a; font-size: 15px; font-weight: 300; letter-spacing: 0.5px; border-top: 1px solid #f0f0f0; margin-top: 4rem;">
+            <p>© 2025 Cerebras API Tools | Powered by Cerebras Systems | Restoration through Technology</p>
+        </footer>
+
+        <!-- Navigation Links -->
+        <div class="nav-links">
+            <a href="https://github.com/bniladridas/Cerebras_API_Tools" target="_blank" class="nav-link github-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+            <a href="https://openrouter.ai/" target="_blank" class="nav-link openrouter-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                    <path d="M2 17L12 22L22 17"/>
+                    <path d="M2 12L12 17L22 12"/>
+                </svg>
+                OpenRouter.ai
+            </a>
+            <button class="nav-link legal-link" onclick="openLegalModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                </svg>
+                Legal
+            </button>
+        </div>
+    </div>
+
+    <!-- Legal Modal -->
+    <div id="legalModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Technical & Legal Information</h2>
+                <span class="close" onclick="closeLegalModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="legal-section">
+                    <h3>Essential Privacy Protection</h3>
+                    <p>Your privacy is sacred to us. We honor your digital well-being through deeply guided protection:</p>
+                    <ul>
+                        <li><strong>Zero Data Retention:</strong> Conversations are not stored or logged</li>
+                        <li><strong>Local Processing:</strong> Your data remains on your device</li>
+                        <li><strong>No Third-Party Sharing:</strong> We never share your information</li>
+                        <li><strong>Encrypted Transmission:</strong> All communications are secured</li>
+                        <li><strong>Anonymous Usage:</strong> No personal identification required</li>
+                        <li><strong>Cookie Transparency:</strong> Essential cookies only, with your consent</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h3>Deeply Guided Cookie Presence</h3>
+                    <p>We use cookies mindfully, with deep respect for your privacy choices:</p>
+                    <ul>
+                        <li><strong>Essential Cookies:</strong> Required for basic functionality only</li>
+                        <li><strong>No Tracking:</strong> We do not track your behavior across sites</li>
+                        <li><strong>No Analytics:</strong> We do not collect usage statistics</li>
+                        <li><strong>No Advertising:</strong> We do not serve targeted advertisements</li>
+                        <li><strong>Session Only:</strong> Cookies expire when you close your browser</li>
+                        <li><strong>Your Control:</strong> You can disable cookies in your browser settings</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h3>Terms of Mindful Service</h3>
+                    <p>Our service agreement is built on mutual respect and understanding:</p>
+                    <ul>
+                        <li><strong>Respectful Use:</strong> Please use our service with kindness and consideration</li>
+                        <li><strong>No Harmful Content:</strong> We ask that you avoid sharing harmful or illegal content</li>
+                        <li><strong>Service Availability:</strong> We strive for reliable service but cannot guarantee 100% uptime</li>
+                        <li><strong>Content Responsibility:</strong> You are responsible for the content you share</li>
+                        <li><strong>Age Requirement:</strong> Users must be 13 years or older, or have parental consent</li>
+                        <li><strong>Termination:</strong> Either party may end the service relationship at any time</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h3>Quality Essential Values</h3>
+                    <p>Our commitment to quality extends beyond technology to human values:</p>
+                    <ul>
+                        <li><strong>Truthfulness:</strong> We provide accurate information to the best of our ability</li>
+                        <li><strong>Transparency:</strong> Our processes and limitations are openly shared</li>
+                        <li><strong>Compassion:</strong> We approach every interaction with empathy and care</li>
+                        <li><strong>Growth:</strong> We support your personal and professional development</li>
+                        <li><strong>Wisdom:</strong> We encourage thoughtful consideration over quick answers</li>
+                        <li><strong>Well-being:</strong> Your mental and emotional health is our priority</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h3>Technical Specifications</h3>
+                    <ul>
+                        <li><strong>AI Model:</strong> Qwen3-32B (Open-weight, transparent)</li>
+                        <li><strong>Inference Engine:</strong> Cerebras Systems (Ethical AI processing)</li>
+                        <li><strong>Security:</strong> End-to-end encryption with privacy-first design</li>
+                        <li><strong>Data Handling:</strong> Zero retention, local processing only</li>
+                        <li><strong>Accessibility:</strong> Designed for all users, including assistive technologies</li>
+                        <li><strong>Performance:</strong> Optimized for speed while maintaining privacy</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h3>Gentle Disclaimer</h3>
+                    <p>We offer this service with humility and care, while acknowledging our limitations:</p>
+                    <ul>
+                        <li><strong>AI Limitations:</strong> Our AI provides assistance but may not always be perfect</li>
+                        <li><strong>Professional Advice:</strong> Please consult qualified professionals for important decisions</li>
+                        <li><strong>Verification:</strong> We encourage you to verify important information independently</li>
+                        <li><strong>Personal Responsibility:</strong> You retain full responsibility for your actions and decisions</li>
+                        <li><strong>No Warranties:</strong> Service is provided "as is" with good intentions but no guarantees</li>
+                        <li><strong>Continuous Improvement:</strong> We are always learning and improving our service</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Noise-free cursor animation
+        const cursor = document.querySelector('.cursor');
+        const cursorTrail = document.querySelector('.cursor-trail');
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let trailX = 0;
+        let trailY = 0;
+
+        let isMoving = false;
+        let moveTimeout;
+
+        // Update mouse position with throttling
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            isMoving = true;
+            clearTimeout(moveTimeout);
+            moveTimeout = setTimeout(() => {
+                isMoving = false;
+            }, 100);
+        });
+
+        // Smooth cursor animation with easing
+        function animateCursor() {
+            // Smooth easing for main cursor
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+
+            // Even smoother easing for trail
+            trailX += (mouseX - trailX) * 0.05;
+            trailY += (mouseY - trailY) * 0.05;
+
+            // Apply positions
+            cursor.style.transform = `translate3d(${cursorX - 4}px, ${cursorY - 4}px, 0)`;
+            cursorTrail.style.transform = `translate3d(${trailX - 12}px, ${trailY - 12}px, 0)`;
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        // Start animation
+        animateCursor();
+
+        // Subtle hover effects for interactive elements
+        const interactiveElements = document.querySelectorAll('h1, .tagline, .nav-link, .service-card, .close');
+
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+                cursorTrail.classList.add('hover');
+            });
+
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+                cursorTrail.classList.remove('hover');
+            });
+        });
+
+        // Modal functions
+        function openLegalModal() {
+            document.getElementById('legalModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLegalModal() {
+            document.getElementById('legalModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('legalModal');
+            if (event.target === modal) {
+                closeLegalModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeLegalModal();
+            }
+        });
+
+        // Make modal functions global
+        window.openLegalModal = openLegalModal;
+        window.closeLegalModal = closeLegalModal;
+
+        // Gentle fade on window leave/enter
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0.2';
+            cursorTrail.style.opacity = '0.1';
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '0.7';
+            cursorTrail.style.opacity = '0.5';
+        });
+    </script>
+</body>
+</html>
