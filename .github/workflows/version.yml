@@ -13,9 +13,8 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Bump version
+    - name: Create alpha-v1 tag
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git tag "alpha-v1" || true
-        git push origin "alpha-v1" || true
+        git tag "alpha-v1" || echo "Tag already exists"
