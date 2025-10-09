@@ -20,7 +20,7 @@ We help advance short business operations and carry forward strategic studies to
 Clone, configure, and build with ease.
 
 ```bash
-git clone https://github.com/uploader/Cerebras_API_Tools.git
+git clone https://github.com/bniladridas/Cerebras_API_Tools.git
 cd Cerebras_API_Tools
 
 # Set your API key
