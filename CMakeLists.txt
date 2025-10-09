@@ -14,10 +14,16 @@ if(NOT CURL_FOUND)
     FetchContent_Declare(curl
         DOWNLOAD_EXTRACT_TIMESTAMP true
         URL https://github.com/curl/curl/releases/download/curl-8_10_1/curl-8.10.1.tar.xz
+        CMAKE_ARGS -DBUILD_CURL_EXE=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON -DHTTP_ONLY=ON -DCMAKE_USE_OPENSSL=OFF
     )
     FetchContent_MakeAvailable(curl)
-    set(CURL_LIBRARIES curl)
-    set(CURL_INCLUDE_DIRS ${curl_SOURCE_DIR}/include)
+    if(TARGET libcurl)
+        set(CURL_LIBRARIES libcurl)
+        set(CURL_INCLUDE_DIRS ${curl_SOURCE_DIR}/include)
+    else()
+        set(CURL_LIBRARIES ${curl_BINARY_DIR}/lib/libcurl.a)
+        set(CURL_INCLUDE_DIRS ${curl_SOURCE_DIR}/include)
+    endif()
 endif()
 
 # If nlohmann_json is not found, fetch it
