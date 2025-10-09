@@ -48,10 +48,11 @@ std::string readApiKeyFromEnv() {
 class Clie {
 private:
     std::string apiKey;
+    std::string systemPrompt;
     CURL* curl;
 
 public:
-    Clie(const std::string& key) : apiKey(key) {
+    Clie(const std::string& key, const std::string& prompt = "You are a helpful assistant.") : apiKey(key), systemPrompt(prompt) {
         curl_global_init(CURL_GLOBAL_ALL);
         curl = curl_easy_init();
     }
@@ -65,7 +66,7 @@ public:
         if (!curl) return "Error: CURL not initialized";
 
         json payload = {
-            {"messages", json::array({ {{"role", "user"}, {"content", question}} })},
+            {"messages", json::array({ {{"role", "system"}, {"content", systemPrompt}}, {{"role", "user"}, {"content", question}} })},
             {"model", "qwen-3-32b"},
             {"stream", false}
         };
@@ -100,10 +101,30 @@ public:
     }
 };
 
-int main() {
+int main(int argc, char* argv[]) {
+    std::string systemPrompt = "You are a helpful assistant.";
+
+    // Parse arguments
+    for (int i = 1; i < argc; i++) {
+        std::string arg = argv[i];
+        if (arg == "--prompt" && i + 1 < argc) {
+            systemPrompt = argv[++i];
+        } else if (arg == "--model" && i + 1 < argc) {
+            // Ignore model for now
+            ++i;
+        } else if (arg == "--help") {
+            std::cout << "Usage: " << argv[0] << " [options]\n";
+            std::cout << "Options:\n";
+            std::cout << "  --prompt PROMPT    Set system prompt (default: You are a helpful assistant.)\n";
+            std::cout << "  --model MODEL      Ignored\n";
+            std::cout << "  --help             Show this help\n";
+            return 0;
+        }
+    }
+
     try {
         std::string apiKey = readApiKeyFromEnv();
-        Clie ai(apiKey);
+        Clie ai(apiKey, systemPrompt);
         std::string input;
 
         std::cout << COLOR_MAGENTA << "\n╔════════════════════════════════════════╗\n";
