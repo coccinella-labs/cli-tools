@@ -12,7 +12,6 @@ qwen3-32b inference delivers 2,400 tokens/sec with hybrid reasoning and tool sup
 ## what it is
 
 - **CLI** — terminal chat completions  
-- **Web UI** — browser interface  
 - **Integration** — compatible with [openrouter.ai](https://openrouter.ai/)
 
 ## quick start
@@ -30,13 +29,6 @@ make
 
 ```bash
 ./build/cli --model qwen-3-32b --prompt "you are a helpful assistant."
-```
-
-### run web ui
-
-```bash
-./build/cerebras_server
-# visit http://localhost:8080
 ```
 
 ## requirements
@@ -59,4 +51,6 @@ sudo apt install cmake libcurl4-openssl-dev nlohmann-json3-dev
 
 ## structure
 
-* `src/` — cli and server
+* `src/` — cli source
+* `scripts/` — helpers
+* `CMakeLists.txt` — build config
