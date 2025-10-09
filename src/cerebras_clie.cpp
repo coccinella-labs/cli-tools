@@ -125,9 +125,19 @@ public:
         if (res != CURLE_OK) {
             std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
         } else {
+            // Check if response is JSON error
+            if (!buffer.empty() && buffer[0] == '{') {
+                try {
+                    json error_json = json::parse(buffer);
+                    if (error_json.contains("error")) {
+                        std::cerr << "API Error: " << error_json["error"] << std::endl;
+                        return;
+                    }
+                } catch (json::parse_error& e) {
+                    // Not JSON, proceed to stream processing
+                }
+            }
             // Process the streamed response
-            // In a real implementation, you would parse the SSE format
-            // Here we're just printing the raw response
             processStreamResponse(buffer);
         }
 
