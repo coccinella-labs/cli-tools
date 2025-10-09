@@ -209,11 +209,14 @@ int main(int argc, char* argv[]) {
             model = argv[++i];
         } else if (arg == "--system-prompt" && i + 1 < argc) {
             systemPrompt = argv[++i];
+        } else if (arg == "--prompt" && i + 1 < argc) {
+            systemPrompt = argv[++i];
         } else if (arg == "--help") {
             std::cout << "Usage: " << argv[0] << " [options]" << std::endl;
             std::cout << "Options:" << std::endl;
             std::cout << "  --model MODEL           Specify the model to use (default: qwen-3-32b)" << std::endl;
             std::cout << "  --system-prompt PROMPT  Specify the system prompt" << std::endl;
+            std::cout << "  --prompt PROMPT         Specify the system prompt (alias for --system-prompt)" << std::endl;
             std::cout << "  --help                  Show this help message" << std::endl;
             return 0;
         }
