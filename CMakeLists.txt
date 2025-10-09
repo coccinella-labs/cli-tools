@@ -12,6 +12,7 @@ find_package(nlohmann_json 3.2.0 QUIET)
 if(NOT CURL_FOUND)
     include(FetchContent)
     FetchContent_Declare(curl
+        DOWNLOAD_EXTRACT_TIMESTAMP true
         URL https://github.com/curl/curl/releases/download/curl-8_10_1/curl-8.10.1.tar.xz
     )
     FetchContent_MakeAvailable(curl)
@@ -22,8 +23,10 @@ endif()
 # If nlohmann_json is not found, fetch it
 if(NOT nlohmann_json_FOUND)
     include(FetchContent)
+    set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
     FetchContent_Declare(json
-        URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
+        DOWNLOAD_EXTRACT_TIMESTAMP true
+        URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
     )
     FetchContent_MakeAvailable(json)
 endif()
