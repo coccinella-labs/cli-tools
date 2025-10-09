@@ -30,8 +30,8 @@ jobs:
     - name: Install dependencies (Windows)
       if: runner.os == 'Windows'
       run: |
-        choco install cmake curl
-        # nlohmann/json will be fetched by CMake
+        choco install cmake
+        # curl and nlohmann/json will be fetched by CMake
 
     - name: Build
       run: |
