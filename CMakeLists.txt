@@ -19,8 +19,8 @@ if(NOT nlohmann_json_FOUND)
 endif()
 
 # Add executables
-add_executable(cerebras_cli src/cerebras_cli.cpp)
-add_executable(clie src/cli.cpp)
+add_executable(cerebras_cli src/cerebras_clie.cpp)
+add_executable(clie src/clie.cpp)
 
 # Link libraries for CLI
 target_link_libraries(cerebras_cli PRIVATE CURL::libcurl)
