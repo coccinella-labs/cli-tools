@@ -56,3 +56,4 @@ sudo apt install cmake libcurl4-openssl-dev nlohmann-json3-dev
 * `scripts/` — helpers
 * `CMakeLists.txt` — build config
 * `SECURITY.md` — security info
+* `USAGE_POLICY.md` — usage policy
