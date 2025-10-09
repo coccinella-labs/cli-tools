@@ -28,7 +28,7 @@ make
 ### run cli
 
 ```bash
-./build/cli --model qwen-3-32b --prompt "you are a helpful assistant."
+./build/clie --model qwen-3-32b --prompt "you are a helpful assistant."
 ```
 
 ## requirements
