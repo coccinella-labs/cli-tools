@@ -144,9 +144,16 @@ Add your Cerebras API key:
 
 ## Project Structure
 
-- `cerebras_cli.cpp`: CLI for chat requests
-- `cerebras_server.cpp`: Web server for UI and API
-- `index.html`, `styles.css`, `script.js`: Web UI components
+- `src/`: Source code
+  - `cerebras_cli.cpp`: CLI for chat requests
+  - `cerebras_server.cpp`: Web server for UI and API
+  - `cli.cpp`: Additional CLI implementation
+- `web/`: Web UI components
+  - `index.html`
+  - `styles.css`
+  - `script.js`
+- `docs/`: Documentation and legal files
+- `scripts/`: Git hooks and utilities
 - `CMakeLists.txt`: Build configuration
 - `.env`: API key storage
 
