@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/basebin/cli/main/.github/assets/thumbnail.png" alt="cli" width="100%">
+</p>
+
 # {Clie} — CLI
 
 <div align="center">
