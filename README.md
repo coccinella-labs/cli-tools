@@ -1,8 +1,4 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Coccinella-Labs/cli-tools/main/.github/assets/thumbnail.png" alt="cli-tools" width="100%">
-</p>
-
-<p align="center">
   <img src="https://raw.githubusercontent.com/coccinella-labs/cli-tools/main/.github/assets/thumbnail.png" alt="cli-tools" width="100%">
 </p>
 
