@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/basebin/cli/main/.github/assets/thumbnail.png" alt="cli" width="100%">
+  <img src="https://raw.githubusercontent.com/coccinella-labs/cli-tools/main/.github/assets/thumbnail.png" alt="cli-tools" width="100%">
 </p>
 
 # {Clie} — CLI
